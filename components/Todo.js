@@ -4,12 +4,25 @@ class Todo {
     this._templateElement = document.querySelector(selector);
   }
 
-  generateCheckboxEl() {
-    const todoCheckboxEl = this._todoElement.querySelector(".todo__completed");
-    const todoLabel = this._todoElement.querySelector(".todo__label");
-    todoCheckboxEl.checked = this._data.completed;
-    todoCheckboxEl.id = `todo-${this._data.id}`;
-    todoLabel.setAttribute("for", `todo-${this._data.id}`);
+  _setEventListeners() {
+    //TODO - set up the delete button handaler
+    // todoDeleteBtn.addEventListener("click", () => {
+    //   todoElement.remove();
+    // });
+
+    this._todoCheckboxEl.addEventListener("change", () => {
+      this._data.completed = !this._data.completed;
+      console.log(this._data.completed);
+    });
+    //when clicked, changed completion from true to false, or vice versa
+  }
+
+  _generateCheckboxEl() {
+    this._todoCheckboxEl = this._todoElement.querySelector(".todo__completed");
+    this._todoLabel = this._todoElement.querySelector(".todo__label");
+    this._todoCheckboxEl.checked = this._data.completed;
+    this._todoCheckboxEl.id = `todo-${this._data.id}`;
+    this._todoLabel.setAttribute("for", `todo-${this._data.id}`);
   }
 
   getView() {
@@ -22,8 +35,10 @@ class Todo {
     const todoDeleteBtn = this._todoElement.querySelector(".todo__delete-btn");
 
     todoNameEl.textContent = this._data.name;
+    //TODO - implement dates
 
     this._generateCheckboxEl();
+    this._setEventListeners();
 
     return this._todoElement;
   }
