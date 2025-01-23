@@ -14,8 +14,8 @@ class Todo {
     deleteButton.addEventListener("click", () => {
       this._todoElement.remove();
     });
-    //when clicked, changed completion from true to false, or vice versa
 
+    //changes completion from true to false, or vice versa
     this._todoCheckboxEl.addEventListener("change", () => {
       this._data.completed = !this._data.completed;
       console.log(this._data.completed);
@@ -37,10 +37,10 @@ class Todo {
 
     const todoNameEl = this._todoElement.querySelector(".todo__name");
     const todoDate = this._todoElement.querySelector(".todo__date");
-    //const todoDeleteBtn = this._todoElement.querySelector(".todo__delete-btn");
 
     todoNameEl.textContent = this._data.name;
-    //TODO - implement dates
+
+    //implements dates
     todoDate.textContent = new Date(this._data.date).toLocaleString();
 
     if (this._data.date) {

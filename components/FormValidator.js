@@ -7,10 +7,15 @@ class FormValidator {
     this._inputErrorClass = settings.inputErrorClass;
     this._inactiveButtonClass = settings.inactiveButtonClass;
     this._formEl = formEl;
+
     this._inputList = Array.from(
       this._formEl.querySelectorAll(this._inputSelector)
     );
     this._submitButton = this._formEl.querySelector(this._submitButtonSelector);
+
+    if (!this._submitButton) {
+      throw new Error("Submit button selector is invalid or missing.");
+    }
   }
 
   //TODO - implement all the other methods
@@ -38,15 +43,8 @@ class FormValidator {
     this._submitButton.classList.toggle(this._inactiveButtonClass, !isValid);
   }
 
+  // Private method to add event listeners to inputs
   _setEventListeners() {
-    // this._inputList = Array.from(
-    //   this._formEl.querySelectorAll(this._inputSelector)
-    // );
-    // //(2) TODO - finish implementing _setEventListeners
-
-    // const buttonElement = this._formEl.querySelector(
-    //   this._submitButtonSelector
-    // );
     this._toggleButtonState();
     this._inputList.forEach((inputElement) => {
       inputElement.addEventListener("input", () => {
@@ -56,6 +54,7 @@ class FormValidator {
     });
   }
 
+  // Public method to enable form validation
   enableValidation() {
     this._formEl.addEventListener("submit", (evt) => {
       evt.preventDefault();
@@ -63,6 +62,7 @@ class FormValidator {
     this._setEventListeners();
   }
 
+  // Public method to reset form validation state
   resetValidation() {
     this._inputList.forEach((inputElement) => {
       inputElement.classList.remove(this._inputErrorClass);
