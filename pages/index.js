@@ -3,13 +3,11 @@ import { v4 as uuidv4 } from "https://jspm.dev/uuid";
 import { initialTodos, validationConfig } from "../utils/constants.js";
 import Todo from "../components/Todo.js";
 import FormValidator from "../components/FormValidator.js";
-//instantiate
 
 const addTodoButton = document.querySelector(".button_action_add");
 const addTodoPopup = document.querySelector("#add-todo-popup");
 const addTodoForm = addTodoPopup.querySelector(".popup__form");
 const addTodoCloseBtn = addTodoPopup.querySelector(".popup__close");
-//const todoTemplate = document.querySelector("#todo-template"); ->remove.
 const todosList = document.querySelector(".todos__list");
 
 const openModal = (modal) => {
@@ -24,8 +22,8 @@ const closeModal = (modal) => {
 const generateTodo = (data) => {
   const todo = new Todo(data, "#todo-template");
   const todoElement = todo.getView();
-  return todoElement;
 
+  return todoElement;
   // To be removed:
   // const todoElement = todoTemplate.content
   //   .querySelector(".todo")
@@ -82,12 +80,19 @@ addTodoForm.addEventListener("submit", (evt) => {
   const todo = generateTodo(values);
   todosList.append(todo);
   closeModal(addTodoPopup);
+  // Reset the form fields after submission
+  addTodoForm.reset();
+  newTodoValidator.resetValidation();
+  // Display a success message or visual feedback
+  console.log("New todo added successfully:", values);
 });
 
 initialTodos.forEach((item) => {
   const todo = generateTodo(item);
   todosList.append(todo);
+
+  // Check if the initial todos contain all necessary properties
 });
 
 const newTodoValidator = new FormValidator(validationConfig, addTodoForm);
-class FormValidator {}
+newTodoValidator.enableValidation();

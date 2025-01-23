@@ -2,19 +2,24 @@ class Todo {
   constructor(data, selector) {
     this._data = data;
     this._templateElement = document.querySelector(selector);
+
+    if (!this._templateElement) {
+      throw new Error(`Template with selector "${selector}" not found`);
+    }
   }
 
   _setEventListeners() {
-    //TODO - set up the delete button handaler
-    // todoDeleteBtn.addEventListener("click", () => {
-    //   todoElement.remove();
-    // });
+    //the delete button handaler
+    const deleteButton = this._todoElement.querySelector(".todo__delete-btn");
+    deleteButton.addEventListener("click", () => {
+      this._todoElement.remove();
+    });
+    //when clicked, changed completion from true to false, or vice versa
 
     this._todoCheckboxEl.addEventListener("change", () => {
       this._data.completed = !this._data.completed;
       console.log(this._data.completed);
     });
-    //when clicked, changed completion from true to false, or vice versa
   }
 
   _generateCheckboxEl() {
@@ -32,10 +37,17 @@ class Todo {
 
     const todoNameEl = this._todoElement.querySelector(".todo__name");
     const todoDate = this._todoElement.querySelector(".todo__date");
-    const todoDeleteBtn = this._todoElement.querySelector(".todo__delete-btn");
+    //const todoDeleteBtn = this._todoElement.querySelector(".todo__delete-btn");
 
     todoNameEl.textContent = this._data.name;
     //TODO - implement dates
+    todoDate.textContent = new Date(this._data.date).toLocaleString();
+
+    if (this._data.date) {
+      todoDate.textContent = new Date(this._data.date).toLocaleString();
+    } else {
+      todoDate.textContent = "No due date set";
+    }
 
     this._generateCheckboxEl();
     this._setEventListeners();
