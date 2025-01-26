@@ -22,10 +22,17 @@ By implementing OOP, the application is modularized into reusable components, ma
 
 ## Technology
 
-Give a description of the technologies and techniques used. Pictures, GIFs, or screenshots that detail the project features are recommended.
+This project is built using the following technologies:
+
+HTML: Provides the structure for the application.
+CSS: Defines the styling for the user interface.
+JavaScript (ES6): Implements functionality using modern practices, including OOP.
+JS Modules: Ensures proper file organization and separation of concerns.
+UUID Library: Generates unique IDs for each to-do item.
+Live Server Extension: Facilitates running the project locally with support for JS modules.
 
 ## Deployment
 
-This project is deployed on GitHub Pages:
+The project is deployed on GitHub Pages for easy access and demonstration. You can try it out here:
 
 - ADD LINK HERE
