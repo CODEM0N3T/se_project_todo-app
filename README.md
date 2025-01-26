@@ -35,4 +35,4 @@ Live Server Extension: Facilitates running the project locally with support for 
 
 The project is deployed on GitHub Pages for easy access and demonstration. You can try it out here:
 
-[- ADD LINK HERE](https://codem0n3t.github.io/se_project_todo-app/)
+[- Simple Todo App](https://codem0n3t.github.io/se_project_todo-app/)
