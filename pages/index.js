@@ -15,39 +15,15 @@ const successMessage = document.querySelector(".success-message");
 
 const addTodoPopup = new PopupWithForm({
   popupSelector: "#add-todo-popup",
-  handleFormSubmit: () => {},
-});
-
-const section = new Section({
-  items: [initialTodos], //pass initial todos
-  renderer: (item) => {
-    // Generate todo item
-    const todo = generateTodo(item);
-    //add it to the todo list
-    //refer to the foreach loop in the file
-    section.addItem(todo);
+  handleFormSubmit: (evt) => {
+    console.log("in index.js");
+    //TODO - move cde from existing submission handler to here
+    console.log(evt.target.name.value);
+    console.log(evt.target.data.value);
   },
-  containerSelector: ".todo__list",
 });
 
-// call section instance's renderItems method
-section.renderItems();
-
-// const openModal = (modal) => {
-//   modal.classList.add("popup_visible");
-//   document.addEventListener("keydown", handleEscapeClose);
-// };
-
-const closeModal = (modal) => {
-  modal.classList.remove("popup_visible");
-  document.removeEventListener("keydown", handleEscapeClose);
-};
-
-const handleEscapeClose = (evt) => {
-  if (evt.key === "Escape") {
-    closeModal(addTodoPopupEl);
-  }
-};
+addTodoPopup.setEventListeners();
 
 // The logic in this function are all handled in the Todo class.
 const generateTodo = (data) => {
@@ -61,34 +37,57 @@ addTodoButton.addEventListener("click", () => {
   addTodoPopup.open();
 });
 
-addTodoCloseBtn.addEventListener("click", () => {
-  closeModal(addTodoPopupEl);
+const section = new Section({
+  items: initialTodos, //pass initial todos
+  renderer: (item) => {
+    // Generate todo item
+    const todo = generateTodo(item);
+    //add it to the todo list
+    //refer to the foreach loop in the file
+    section.addItem(todo);
+  },
+  containerSelector: ".todos__list",
 });
 
-addTodoForm.addEventListener("submit", (evt) => {
-  evt.preventDefault();
-  const name = evt.target.name.value;
-  const dateInput = evt.target.date.value;
+// call section instance's renderItems method
+section.renderItems();
 
-  if (!name || !dateInput) {
-    alert("Please fill out all fields.");
-    return;
+function handleEscapeClose(evt) {
+  if (evt.key === "Escape") {
+    //find the currently opened modal
+    const openModal = document.querySelector(".modal_is-opened");
+    //and close it
   }
+}
 
-  const date = new Date(dateInput);
-  date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
+// addTodoCloseBtn.addEventListener("click", () => {
+//   addTodoPopupEl.close();
+// });
 
-  const id = uuidv4();
-  const values = { name, date, id };
-  const todo = generateTodo(values);
-  section.addItem(todo); //use addItem method instead
-  closeModal(addTodoPopupEl);
-  // Resets the form fields after submission
-  addTodoForm.reset();
-  newTodoValidator.resetValidation();
-  // Displays a success message
-  console.log("New todo added successfully:", values);
-});
+// addTodoForm.addEventListener("submit", (evt) => {
+//   evt.preventDefault();
+//   const name = evt.target.name.value;
+//   const dateInput = evt.target.date.value;
+
+//   if (!name || !dateInput) {
+//     alert("Please fill out all fields.");
+//     return;
+//   }
+
+//   const date = new Date(dateInput);
+//   date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
+
+//   const id = uuidv4();
+//   const values = { name, date, id };
+//   const todo = generateTodo(values);
+//   section.addItem(todo); //use addItem method instead
+//   closeModal(addTodoPopupEl);
+//   // Resets the form fields after submission
+//   addTodoForm.reset();
+//   newTodoValidator.resetValidation();
+//   // Displays a success message
+//   console.log("New todo added successfully:", values);
+// });
 
 // initialTodos.forEach((item) => {
 // const todo = generateTodo(item);

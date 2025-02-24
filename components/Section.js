@@ -13,6 +13,10 @@ class Section {
   }
 
   addItem(element) {
+    if (!this._container) {
+      console.error("Error: Container element not found.");
+      return;
+    }
     //Add element to the container
     this._container.append(element);
   }
