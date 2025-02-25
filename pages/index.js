@@ -16,10 +16,7 @@ const successMessage = document.querySelector(".success-message");
 const addTodoPopup = new PopupWithForm({
   popupSelector: "#add-todo-popup",
   handleFormSubmit: (evt) => {
-    console.log("in index.js");
     //TODO - move cde from existing submission handler to here
-    console.log(evt.target.name.value);
-    console.log(evt.target.data.value);
   },
 });
 
