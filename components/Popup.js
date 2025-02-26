@@ -2,12 +2,12 @@ class Popup {
   constructor({ popupSelector }) {
     this._popupElement = document.querySelector(popupSelector);
     this._popupCloseBtn = this._popupElement.querySelector(".popup__close");
+    this._handleEscapeClose = this._handleEscapeClose.bind(this);
   }
 
   _handleEscapeClose(evt) {
     if (evt.key === "Escape") {
       this.close();
-      // closeModal(addTodoPopupEl);
     }
   }
 
@@ -23,6 +23,8 @@ class Popup {
 
   setEventListeners() {
     //overlay listener must also be implemented from scratch, it isn't in the starting code
+    this._popupCloseBtn.addEventListener("click", () => this.close());
+
     this._popupElement.addEventListener("mousedown", (evt) => {
       if (
         evt.target.classList.contains("popup") ||
