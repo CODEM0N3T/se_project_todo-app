@@ -78,21 +78,6 @@ class Todo {
   };
 
   getView() {
-    // this._todoElement = this._getTemplate();
-
-    // const todoNameEl = this._todoElement.querySelector(".todo__name");
-    // const todoDate = this._todoElement.querySelector(".todo__date");
-
-    // todoNameEl.textContent = this._name;
-
-    //implements dates
-    // todoDate.textContent = new Date(this._date).toLocaleString();
-
-    // if (this._date) {
-    //   todoDate.textContent = new Date(this._date).toLocaleString();
-    // } else {
-    //   todoDate.textContent = "No due date set";
-    // }
     this._element = this._getTemplate();
     this._deleteBtnEl = this._element.querySelector(".todo__delete-btn");
     this._generateNameEl();

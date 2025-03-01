@@ -23,7 +23,6 @@ class Popup {
 
   setEventListeners() {
     //overlay listener must also be implemented from scratch, it isn't in the starting code
-    this._popupCloseBtn.addEventListener("click", () => this.close());
 
     this._popupElement.addEventListener("mousedown", (evt) => {
       if (
