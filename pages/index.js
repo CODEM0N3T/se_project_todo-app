@@ -1,7 +1,6 @@
 import { v4 as uuidv4 } from "https://jspm.dev/uuid";
 
 import { initialTodos, validationConfig } from "../utils/constants.js";
-
 import Todo from "../components/Todo.js";
 import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
@@ -17,34 +16,30 @@ const successMessage = document.querySelector(".success-message");
 
 const todoCounter = new TodoCounter(initialTodos, ".counter__text");
 
-// The logic in this function are all handled in the Todo class.
-// const generateTodo = (data) => {
-//   const todo = new Todo(data, "#todo-template", handleCheck, handleDelete);
-//   // const todoElement = todo.getView();
+// Function to generate a todo item
+const generateTodo = (data) => {
+  const todo = new Todo(data, "#todo-template", handleCheck, handleDelete);
 
-//   return todo.getView();
-// };
-
-const renderTodo = (item) => {
-  const todo = new Todo(item, "#todo-template", handleCheck, handleDelete);
   return todo.getView();
 };
 
+const renderTodo = (item) => {
+  const todo = generateTodo(item);
+
+  section.addItem(todo);
+};
+
+// Section instance
 const section = new Section({
-  items: initialTodos, //pass initial todos
-  renderer: (item) => {
-    // Generate todo item
-    const todo = renderTodo(item);
-    //add it to the todo list
-    //refer to the foreach loop in the file
-    section.addItem(todo);
-  },
+  items: initialTodos, // Pass initial todos
+  renderer: renderTodo,
   containerSelector: ".todos__list",
 });
 
-// call section instance's renderItems method
+// Call section instance's renderItems method
 section.renderItems();
 
+// Popup form submission handler
 const addTodoPopup = new PopupWithForm({
   popupSelector: "#add-todo-popup",
   handleFormSubmit: (inputValues) => {
@@ -63,8 +58,9 @@ const addTodoPopup = new PopupWithForm({
     const id = uuidv4();
     const values = { name, date: formattedDate, id };
 
-    const todo = renderTodo(values);
-    section.addItem(todo);
+    const todo = generateTodo(values); // Generate the todo item
+
+    section.addItem(todo); // ✅ Add the todo to the section
 
     todoCounter.updateTotal(true);
 
@@ -83,6 +79,7 @@ function handleCheck(completed) {
 }
 
 function handleDelete(completed) {
+  todoCounter.updateTotal(false);
   if (completed) {
     todoCounter.updateCompleted(false);
   }
