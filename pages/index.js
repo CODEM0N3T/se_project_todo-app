@@ -60,7 +60,7 @@ const addTodoPopup = new PopupWithForm({
 
     const todo = generateTodo(values); // Generate the todo item
 
-    section.addItem(todo); // ✅ Add the todo to the section
+    renderTodo(values);
 
     todoCounter.updateTotal(true);
 
