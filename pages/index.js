@@ -58,8 +58,6 @@ const addTodoPopup = new PopupWithForm({
     const id = uuidv4();
     const values = { name, date: formattedDate, id };
 
-    const todo = generateTodo(values); // Generate the todo item
-
     renderTodo(values);
 
     todoCounter.updateTotal(true);
